@@ -1,6 +1,6 @@
 ﻿using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
-using SeleniumAutoTest;
+using SeleniumDevBy;
 using System.Net.Sockets;
 
 //WebDriver driverDevBy = new ChromeDriver();
@@ -11,15 +11,17 @@ using System.Net.Sockets;
 //driverDevBy.Close();
 
 System.Threading.Thread.Sleep(3000);
-//WebDriver driver = new ChromeDriver();
-//driver.Url = "https://devby.io/";
+WebDriver driver = new ChromeDriver();
+HomePage homePage = new HomePage(driver);
+homePage.OpenVacancies();
+homePage.GetVacanciesTheMainPage();
+JavaVacancies javaVacancies = new JavaVacancies(driver);
+javaVacancies.GetVacanciesPage();
 
-//System.Threading.Thread.Sleep(3000);
+var vacanciesTextOnTheMainPage = driver.FindElement(By.XPath("/html/body/div[2]/main/div[10]/div[2]/div/div[7]/div")).Text;
+var vacanciesTextNumberOnTheMainPage = vacanciesTextOnTheMainPage.Trim().Split(' ')[0];
 
-//var vacanciesTextOnTheMainPage = driver.FindElement(By.XPath("/html/body/div[2]/main/div[10]/div[2]/div/div[7]/div")).Text;
-//var vacanciesTextNumberOnTheMainPage = vacanciesTextOnTheMainPage.Trim().Split(' ')[0];
-
-//Console.WriteLine(vacanciesTextNumberOnTheMainPage);
+Console.WriteLine(vacanciesTextNumberOnTheMainPage);
 
 //int vacanciesNumberOnTheMainPage;
 //int.TryParse(vacanciesTextNumberOnTheMainPage, out vacanciesNumberOnTheMainPage);
@@ -57,53 +59,7 @@ System.Threading.Thread.Sleep(3000);
     //Console.WriteLine("number are the same");
 }
 
-/*WebDriver driverGoogle = new ChromeDriver();
-driverGoogle.Navigate().GoToUrl("https://www.google.com/intl/ru/gmail/about/");
 
-HomePage homePage = new HomePage(driverGoogle);
-homePage.OpenLoginPage();
-
-LoginPage loginPage = new LoginPage(driverGoogle);
-loginPage.InputEmailInLogin("TSelenium001");
-loginPage.InputPasswordInLogin("SELenium");
-
-MailPage mailPage = new MailPage(driverGoogle);
-mailPage.NewWriteLetter();
-mailPage.NewWriteLetterWhom("TSelenium007@gmail.com");
-mailPage.TheTermLetter("hello");
-mailPage.NewLetterText("How are you?");
-mailPage.SendLetter();
-
-Thread.Sleep(3000); 
-mailPage.Exit();
-
-
-loginPage.InputEmailInLogin("TSelenium007");
-loginPage.InputPasswordInLogin("SELenium");
-mailPage.ReloadPage();
-mailPage.OpenFirstLetter();
-var term = mailPage.OpenTermLetter();
-Console.WriteLine(term);
-var textLetter = mailPage.OpenTextLetter();
-Console.WriteLine(textLetter);
-mailPage.AnswerLetter();
-mailPage.PrintAnswerText("bye");
-mailPage.SendAnswerLetter();
-
-Thread.Sleep(3000);
-mailPage.Exit();
-
-
-loginPage.InputEmailInLogin("TSelenium001");
-loginPage.InputPasswordInLogin("SELenium");
-mailPage.ReloadPage();
-mailPage.OpenFirstLetter();
-var term2 = mailPage.OpenTermLetter();
-mailPage.OpenTextLetter();
-
-Thread.Sleep(3000);
-mailPage.Exit();
-driverGoogle.Close();*/
 
 
 

@@ -1,6 +1,6 @@
 ﻿using OpenQA.Selenium;
 
-namespace SeleniumAutoTest
+namespace SeleniumDevBy
 {
     internal class Authorization
     {

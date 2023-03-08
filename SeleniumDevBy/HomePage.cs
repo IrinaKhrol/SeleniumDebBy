@@ -1,40 +1,29 @@
 ﻿using OpenQA.Selenium;
-using OpenQA.Selenium.Support.UI;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace SeleniumAutoTest
+namespace SeleniumDevBy
 {
-    public class HomePage
+    internal class HomePage : BasePage
     {
-        protected IWebDriver _driverGoogle;
+        const string VACANCIES_TEXT_ON_THE_MAIN_PAGE = "/html/body/div[2]/main/div[10]/div[2]/div/div[7]/div";
+        const string VACANCIES_BUTTON = "//a[@href='https://jobs.dev.by/?filter[specialization_title]=Java']";
 
-        const string SITE_EMAIL_XPATH = "//a[@data-action='sign in']";
-
-        protected WebDriverWait _wait;
-
-
-        public HomePage(IWebDriver driverGoogle)
+        public HomePage(IWebDriver driver) : base(driver)
         {
-            _driverGoogle = driverGoogle;
-            _driverGoogle.Manage().Window.Maximize();
-            _wait = new WebDriverWait(_driverGoogle, TimeSpan.FromSeconds(3000));
+            GoToUrl("https://devby.io/");
         }
 
-        public void GoToUrl(string url) 
+        public void OpenVacancies()
         {
-            _driverGoogle.Navigate().GoToUrl(url);
+            var vacanciesButton = _driver.FindElement(By.XPath(VACANCIES_BUTTON));
+            vacanciesButton.Click();
         }
 
-        public void OpenLoginPage()
+        internal string GetVacanciesTheMainPage()
         {
-            _wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementIsVisible(By.XPath(SITE_EMAIL_XPATH)));
-            _driverGoogle.FindElement(By.XPath(SITE_EMAIL_XPATH)).Click();
+            var vacanciesTextOnTheMainPage = _driver.FindElement(By.XPath(VACANCIES_TEXT_ON_THE_MAIN_PAGE)).Text;
+            var vacanciesTextNumberOnTheMainPage = vacanciesTextOnTheMainPage.Trim().Split(' ')[0];
+            return vacanciesTextNumberOnTheMainPage;
         }
-
-
-    }
+    }       
 }
+
